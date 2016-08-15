@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" ng-app='wsscat'>
+<head>
+	<meta charset="UTF-8">
+	<title>demo1</title>
+</head>
+<style>
+*{padding:0;margin:0;}
+body{background: #fff;}
+
+</style>
+<body>
+	<div ng-controller='indexCtrl'>
+		<input type="text" ng-model='input'><br>
+		
+		<button ng-click='send()'>发送</button><br/>
+		
+		<p style='height:100px' ng-model='output'>{{output}}</p>
+	</div>
+	
+</body>
+<script src='js/angular.min.js'></script>
+<script>
+	var app= angular.module('wsscat',[]);
+	app.controller('indexCtrl',
+		function($scope,$http){
+			$scope.name = '';
+			
+
+			
+			$scope.send = function(){
+				$http.get('http://www.tuling123.com/openapi/api?key=982f5a99f9ef4a59b7cb093162e32c0b&userid=abc123&info='+$scope.input).success(function(data){
+					console.log(data.text);
+					$scope.output=data.text;
+					console.log($scope.output);
+				});
+			}
+			
+			/*input.onclick = function(){//点击按钮触发事件
+				var xhr = new XMLHttpRequest();
+				xhr.open('get','http://www.tuling123.com/openapi/api?key=982f5a99f9ef4a59b7cb093162e32c0b&userid=abc123&info='+txt.value);
+
+				xhr.onreadystatechange = function(){
+					if(xhr.readyState ==4 &&  xhr.status == 200){
+						var res =JSON.parse(xhr.responseText);
+						txt = res.text;
+						console.log(txt);
+					}
+					
+				}
+				xhr.send();
+			}
+			console.log(txt);*/
+		}
+	);
+</script>
+</html>
